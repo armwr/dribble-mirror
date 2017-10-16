@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px;
+}
+.flex-container > div {
+  flex: 1 33%;
+}
+
+.flex-item {
+  margin-bottom: 30px;
+}
