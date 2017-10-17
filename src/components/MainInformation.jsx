@@ -2,29 +2,14 @@ import React, { Component } from 'react';
 import './index.css';
 
 class Header extends Component {
-  renderCurrentCity() {
-    let city = this.props.weatherInfo.city,
-        currentCity = '';
-    for (var cityInfo in city) {
-      if (city.hasOwnProperty(cityInfo)) {
-        if (cityInfo === 'name') {
-          currentCity += city[cityInfo];
-        }
-      }
-    }
-    return (
-      <div>Current city: {currentCity}</div>
-    )
-  }
   KelvinToCelsius(temperature) {
     return +(temperature - 273.15).toFixed(0);
   }
   render () {
     let forecasts = this.props.weatherInfo.list;
-    console.log(this.props.weatherInfo.list);
     return (
       <div>
-	      <div>{this.renderCurrentCity()}</div>
+	      <h1 className="current-city">Current city: {this.props.defaultCity}</h1>
 	      <div className="flex-container">
 	        {
 	          forecasts 
