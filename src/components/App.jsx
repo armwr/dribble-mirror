@@ -18,7 +18,7 @@ class App extends Component {
     apiCall.then(this.createRequest());
   }
   getCity() {
-    let cityRequestURL = 'http://freegeoip.net/json/';
+    let cityRequestURL = 'https://freegeoip.net/json/';
     fetch(cityRequestURL, {
       method: 'GET'
     })
