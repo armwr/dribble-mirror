@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding: 0;
+  font-family: Roboto, sans-serif;
 }
 
 .flex-container {
@@ -16,4 +17,12 @@ body {
 
 .flex-item {
   margin-bottom: 30px;
+}
+
+.current-city, .input-wrapper {
+  text-align: center;
+}
+
+.submit-button {
+  margin-left: 20px;
 }
