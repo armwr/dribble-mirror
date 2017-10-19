@@ -19,10 +19,21 @@ body {
   margin-bottom: 30px;
 }
 
-.current-city, .input-wrapper {
+.current-city, .input-wrapper, .react-tabs {
   text-align: center;
+}
+
+.input-wrapper {
+  margin-bottom: 50px;
 }
 
 .submit-button {
   margin-left: 20px;
+}
+
+.tabtitle {
+  font-size: 24px;
+  padding-top: 16px;
+  margin-bottom: 12px;
+  font-weight: 400;
 }

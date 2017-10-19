@@ -8,24 +8,23 @@ class App extends Component {
     super(props);
     this.state = {
       weatherInfo: [],
-      defaultCity: '',
+      defaultCity: 'London',
       newCity: '',
     }
   }
   componentDidMount() {
-    let apiCall = new Promise(function(resolve, reject) {});
+    let apiCall = new Promise(function() {});
     apiCall.then(this.getCity());
     apiCall.then(this.createRequest());
   }
   getCity() {
-    let cityRequestURL = 'http://freegeoip.net/json/';
+    let cityRequestURL = 'https://freegeoip.net/json/';
     fetch(cityRequestURL, {
       method: 'GET'
     })
     .then(response => response.json())
     .then(json => {
       this.setState({defaultCity: json.city})
-      console.log(this.state.defaultCity)
     })
   }
   createRequest(city) {
