@@ -13,7 +13,7 @@ class App extends Component {
     }
   }
   componentDidMount() {
-    let apiCall = new Promise(function(resolve, reject) {});
+    let apiCall = new Promise(function() {});
     apiCall.then(this.getCity());
     apiCall.then(this.createRequest());
   }
@@ -25,7 +25,6 @@ class App extends Component {
     .then(response => response.json())
     .then(json => {
       this.setState({defaultCity: json.city})
-      console.log(this.state.defaultCity)
     })
   }
   createRequest(city) {
