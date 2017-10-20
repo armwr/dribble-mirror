@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import MainInformation from './MainInformation';
+import cookie from 'react-cookies';
 import { MuiThemeProvider, TextField, RaisedButton } from 'material-ui';
 
 class App extends Component {
@@ -18,14 +19,18 @@ class App extends Component {
     apiCall.then(this.createRequest());
   }
   getCity() {
-    let cityRequestURL = 'https://freegeoip.net/json/';
-    fetch(cityRequestURL, {
-      method: 'GET'
-    })
-    .then(response => response.json())
-    .then(json => {
-      this.setState({defaultCity: json.city})
-    })
+	    if (cookie.load('weather-app-city')) {
+	      this.setState({defaultCity: cookie.load('weather-app-city')})
+	    } else {
+	    let cityRequestURL = 'https://freegeoip.net/json/';
+	    fetch(cityRequestURL, {
+	      method: 'GET'
+	    })
+	    .then(response => response.json())
+	    .then(json => {
+	      this.setState({defaultCity: json.city})
+	    })
+	  }
   }
   createRequest(city) {
     const WEATHER_FORECAST_API_TOKEN = '6692528c5050d5ca6bbd2daac9eeab8a';
@@ -40,6 +45,7 @@ class App extends Component {
     })
   }
   updateCity() {
+  	cookie.save('weather-app-city', this.state.newCity);
     this.setState({defaultCity: this.state.newCity});
     this.createRequest(this.state.newCity);
   }
@@ -52,7 +58,15 @@ class App extends Component {
 	        <TextField 
 	          className="search-input"
 	          hintText="City to find..."
-	          onChange={event => this.setState({newCity: event.target.value})}
+	          onChange={ event => {
+	            this.setState({newCity: event.target.value}),
+	            cookie.save('weather-app-city', this.state.newCity);
+	          }}
+	          onKeyPress={event => {
+              if (event.key === 'Enter') {
+                this.updateCity()
+              }
+            }}
 	        />
 	        <RaisedButton 
 	          label="Search" 

@@ -8,8 +8,7 @@ class Header extends Component {
       <div>
         <MuiThemeProvider>
           <AppBar
-            title="Weather App"
-            iconClassNameRight="muidocs-icon-navigation-expand-more"
+            title="Weather Forecast"
           />
         </MuiThemeProvider>
       </div>
