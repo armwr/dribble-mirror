@@ -11,6 +11,7 @@ body {
   justify-content: center;
   margin: 20px;
 }
+
 .flex-container > div {
   flex: 1 33%;
 }
@@ -19,12 +20,16 @@ body {
   margin-bottom: 30px;
 }
 
-.current-city, .input-wrapper, .react-tabs {
+.current-city, .input-wrapper {
   text-align: center;
 }
 
 .input-wrapper {
   margin-bottom: 50px;
+}
+
+.search-input {
+  margin-top: 50px;
 }
 
 .submit-button {
@@ -36,4 +41,48 @@ body {
   padding-top: 16px;
   margin-bottom: 12px;
   font-weight: 400;
+}
+
+.tabs-wrapper {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.imageContainer {
+  background: url('../weather-icons-set.png');
+}
+.icon-01n, .icon-01d {
+  background-position: -90px -50px;
+  height: 100px;
+  width: 100px;
+}
+
+.icon-02d {
+  background-position: -323px -50px;
+  height: 100px;
+  width: 100px;
+}
+
+.icon-04n, .icon-04d, .icon-03d {
+  background-position: -438px -45px;
+  height: 92px;
+  width: 100px;
+}
+
+.icon-10d, .icon-10n, .icon-02n {
+  background-position: -93px -144px;
+  height: 100px;
+  width: 100px;
+}
+
+.icon-03n {
+  background-position: -323px -144px;
+  height: 100px;
+  width: 100px;
+}
+
+.icon-13n {
+  background-position: -212px -243px;
+   height: 100px;
+  width: 100px;
 }
