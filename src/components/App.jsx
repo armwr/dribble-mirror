@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Header from './Header';
-import MainInformation from './MainInformation';
-import cookie from 'react-cookies';
+import Main from './Main';
 import { MuiThemeProvider, TextField, RaisedButton } from 'material-ui';
 
 class App extends Component {
@@ -14,28 +13,23 @@ class App extends Component {
     }
   }
   componentDidMount() {
-    let apiCall = new Promise(function() {});
-    apiCall.then(this.getCity());
-    apiCall.then(this.createRequest());
+    this.getCity();
   }
   getCity() {
-	    if (cookie.load('weather-app-city')) {
-	      this.setState({defaultCity: cookie.load('weather-app-city')})
-	    } else {
-	    let cityRequestURL = 'https://freegeoip.net/json/';
-	    fetch(cityRequestURL, {
-	      method: 'GET'
-	    })
-	    .then(response => response.json())
-	    .then(json => {
-	      this.setState({defaultCity: json.city})
-	    })
-	  }
+      let cityRequestURL = 'https://freegeoip.net/json/';
+      fetch(cityRequestURL, {
+        method: 'GET'
+      })
+      .then(response => response.json())
+      .then(json => {
+        this.setState({defaultCity: json.city})
+        this.createRequest(this.state.defaultCity);
+      })
   }
   createRequest(city) {
     const WEATHER_FORECAST_API_TOKEN = '6692528c5050d5ca6bbd2daac9eeab8a';
     let BASE_URL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${WEATHER_FORECAST_API_TOKEN}`;
-
+    
     fetch(BASE_URL, {
       method: 'GET'
     })
@@ -45,39 +39,37 @@ class App extends Component {
     })
   }
   updateCity() {
-  	cookie.save('weather-app-city', this.state.newCity);
     this.setState({defaultCity: this.state.newCity});
     this.createRequest(this.state.newCity);
   }
   render() {
     return (
-	    <MuiThemeProvider>
-	      <div>
-	        <Header />
-	        <div className="input-wrapper">
-	        <TextField 
-	          className="search-input"
-	          hintText="City to find..."
-	          onChange={ event => {
-	            this.setState({newCity: event.target.value}),
-	            cookie.save('weather-app-city', this.state.newCity);
-	          }}
-	          onKeyPress={event => {
+      <MuiThemeProvider>
+        <div>
+          <Header />
+          <div className="input-wrapper">
+          <TextField 
+            className="search-input"
+            hintText="City to find..."
+            onChange={ event => {
+              this.setState({newCity: event.target.value})
+            }}
+            onKeyPress={event => {
               if (event.key === 'Enter') {
                 this.updateCity()
               }
             }}
-	        />
-	        <RaisedButton 
-	          label="Search" 
-	          primary={true} 
-	          className="submit-button"
-	          onClick={() => this.updateCity()}
-	        />
-	        </div>
-	        <MainInformation weatherInfo={this.state.weatherInfo} defaultCity={this.state.defaultCity} />
-	      </div>
-	    </MuiThemeProvider>
+          />
+          <RaisedButton 
+            label="Search" 
+            primary={true} 
+            className="submit-button"
+            onClick={() => this.updateCity()}
+          />
+          </div>
+          <Main weatherInfo={this.state.weatherInfo} defaultCity={this.state.defaultCity} />
+        </div>
+      </MuiThemeProvider>
     )
   }
 }
