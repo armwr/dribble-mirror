@@ -4,16 +4,16 @@ body {
   font-family: Roboto, sans-serif;
 }
 
-.flex-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 20px;
+.weather-table {
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
 }
 
-.flex-container > div {
-  flex: 1 33%;
+.weather-table th {
+  padding: 0 10px;
+}
+
+.weather-table td {
+  text-align: center;
 }
 
 .flex-item {
@@ -44,7 +44,7 @@ body {
 }
 
 .tabs-wrapper {
-  width: 50%;
+  width: 59%;
   margin: 0 auto;
 }
 
