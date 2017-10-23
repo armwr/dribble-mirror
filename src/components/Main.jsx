@@ -26,7 +26,7 @@ class MainInformation extends Component {
           <table className="weather-table">
                 <thead>
                   <tr>
-                    <th>Time {`tab_${tab_index}`}</th>
+                    <th>Time</th>
                     <th>Weather</th>
                     <th>Description</th>
                     <th>Temperature</th>
@@ -45,7 +45,13 @@ class MainInformation extends Component {
                             forecast.dt_txt.split(' ')[1] === "15:00:00" || forecast.dt_txt.split(' ')[1] === "21:00:00") {
                             return (
                               <tr key={index}>
-                                <td>{ forecast.dt_txt.split(' ')[1] }</td>
+                                <td>
+                                  { 
+                                    forecast.dt_txt.split(' ')[1] ===  '03:00:00' ? 'Night' : 
+                                    forecast.dt_txt.split(' ')[1] ===  '09:00:00' ? 'Morning' : 
+                                    forecast.dt_txt.split(' ')[1] ===  '15:00:00' ? 'Afternoon' : 'Evening'
+                                  }
+                                </td>
                                 <td><div className={`imageContainer icon-${forecast.weather[0].icon}`}></div></td>
                                 <td>{ forecast.weather[0].description }</td>
                                 <td>{ this.KelvinToCelsius(forecast.main.temp) } °C</td>
@@ -57,7 +63,7 @@ class MainInformation extends Component {
                           }
                         }
                       })
-                      : <tr><td><h1>Service is downloading</h1></td></tr>
+                      : <tr><td><h1>Service is currently unavailable</h1></td></tr>
                   }
             </tbody>
           </table>
