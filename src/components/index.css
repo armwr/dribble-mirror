@@ -4,6 +4,13 @@ body {
   font-family: Roboto, sans-serif;
 }
 
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  padding: 30px 0;
+}
+
 .weather-table {
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
 }
@@ -48,41 +55,75 @@ body {
   margin: 0 auto;
 }
 
-.imageContainer {
+.weatherContainer {
   background: url('../weather-icons-set.png');
+  height: 100px;
+  width: 100px;
 }
 .icon-01n, .icon-01d {
   background-position: -90px -50px;
-  height: 100px;
-  width: 100px;
 }
 
 .icon-02d {
   background-position: -323px -50px;
-  height: 100px;
-  width: 100px;
 }
 
 .icon-04n, .icon-04d, .icon-03d {
   background-position: -438px -45px;
-  height: 92px;
-  width: 100px;
 }
 
 .icon-10d, .icon-10n, .icon-02n {
   background-position: -93px -144px;
-  height: 100px;
-  width: 100px;
 }
 
 .icon-03n {
   background-position: -323px -144px;
-  height: 100px;
-  width: 100px;
 }
 
 .icon-13n, .icon-13d {
   background-position: -212px -243px;
-   height: 100px;
-  width: 100px;
+}
+
+.windPar {
+  margin-top: 10px;
+}
+
+.windContainer {
+  background: url('../mobile-app-design-wind-direction-pictographs.png');
+  margin-right: 10px;
+  margin-top: 5px;
+  height: 34px;
+  width: 38px;
+}
+
+.east {
+  background-position: -162px -225px;
+}
+
+.south {
+  background-position: -60px 0px;
+}
+
+.west {
+  background-position: 38px -62px;
+}
+
+.north {
+  background-position: 101px -128px;
+}
+
+.north-east {
+  background-position: -179px -270px;
+}
+
+.north-west {
+  background-position: -104px 54px;
+}
+
+.south-east {
+  background-position: -20px -182px;
+}
+
+.south-west {
+  background-position: -104px -19px;
 }

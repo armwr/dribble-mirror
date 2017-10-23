@@ -10,14 +10,27 @@ class MainInformation extends Component {
     };
     this.today = new Date().toString().split(' ');
   }
+
   handleTabChange = (value) => {
     this.setState({
       value: value,
     });
   };
+
   KelvinToCelsius = (temperature) => {
     return +(temperature - 273.15).toFixed(0);
   };
+
+  windDirection = (wind) => {
+    return wind >= 22.5 && wind <= 68 ? 'north-east' :
+           wind >= 68 && wind <= 112 ? 'east' :
+           wind >= 112 && wind <= 158 ? 'south-east' :
+           wind >= 158 && wind <= 202 ? 'south' :
+           wind >= 202 && wind <= 248 ? 'south-west' :
+           wind >= 248 && wind <= 292 ? 'west' :
+           wind >= 292 && wind <= 318 ? 'north-west' :
+           wind >= 318 && wind <= 360 ? 'north' : 'north';
+  }
 
   weatherTbody = (tab_index) => {
     let forecasts = this.props.weatherInfo.list;
@@ -52,12 +65,12 @@ class MainInformation extends Component {
                                     forecast.dt_txt.split(' ')[1] ===  '15:00:00' ? 'Afternoon' : 'Evening'
                                   }
                                 </td>
-                                <td><div className={`imageContainer icon-${forecast.weather[0].icon}`}></div></td>
-                                <td>{ forecast.weather[0].description }</td>
-                                <td>{ this.KelvinToCelsius(forecast.main.temp) } °C</td>
-                                <td>{ forecast.main.pressure }</td>
-                                <td>{ forecast.main.humidity }</td>
-                                <td>{ forecast.wind.speed }</td>
+                                <td><div className={`weatherContainer icon-${forecast.weather[0].icon}`}></div></td>
+                                <td><span>{ forecast.weather[0].description }</span></td>
+                                <td><span>{ this.KelvinToCelsius(forecast.main.temp) } °C</span></td>
+                                <td><span>{ forecast.main.pressure }</span></td>
+                                <td><span>{ forecast.main.humidity }</span></td>
+                                <td className="flex-container"><div className={`windContainer ${this.windDirection(forecast.wind.deg)}`}></div><p className="windPar">{ forecast.wind.speed }</p></td>
                               </tr>
                             )
                           }
@@ -74,16 +87,14 @@ class MainInformation extends Component {
     return (
       <div className="tabs-wrapper">
         <h1 className="current-city">Weather in {this.props.defaultCity}</h1>
-        <div className="flex-container">
-          <Tabs
-          value={this.state.value}
-          onChange={this.handleTabChange}
-          >
-            { this.weatherTbody(0) }
-            { this.weatherTbody(1) }
-            { this.weatherTbody(2) }
-          </Tabs>
-        </div>
+        <Tabs
+        value={this.state.value}
+        onChange={this.handleTabChange}
+        >
+          { this.weatherTbody(0) }
+          { this.weatherTbody(1) }
+          { this.weatherTbody(2) }
+        </Tabs>
       </div>
     )
   }
