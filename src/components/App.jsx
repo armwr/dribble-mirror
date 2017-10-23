@@ -39,8 +39,10 @@ class App extends Component {
     })
   }
   updateCity() {
-    this.setState({defaultCity: this.state.newCity});
-    this.createRequest(this.state.newCity);
+    if (/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/.test(this.state.newCity)) {
+      this.setState({defaultCity: this.state.newCity});
+      this.createRequest(this.state.newCity);
+    }
   }
   render() {
     return (
