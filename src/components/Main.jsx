@@ -63,7 +63,7 @@ class MainInformation extends Component {
                           }
                         }
                       })
-                      : <tr><td><h1>Service is downloading</h1></td></tr>
+                      : <tr><td><h1>Service is currently unavailable</h1></td></tr>
                   }
             </tbody>
           </table>
