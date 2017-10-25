@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Main from './Main';
-import { MuiThemeProvider, TextField, RaisedButton } from 'material-ui';
+import { CircularProgress, TextField, RaisedButton } from 'material-ui';
 
 class App extends Component {
   constructor(props) {
@@ -10,23 +10,29 @@ class App extends Component {
       weatherInfo: [],
       defaultCity: 'London',
       newCity: '',
+      showPreloader: true,
+      mainBlockShow: false
     }
-  }
-  componentDidMount() {
+  };
+
+  componentDidMount = () => {
+    this.preloader();
     this.getCity();
-  }
-  getCity() {
-      let cityRequestURL = 'https://freegeoip.net/json/';
-      fetch(cityRequestURL, {
-        method: 'GET'
-      })
-      .then(response => response.json())
-      .then(json => {
-        this.setState({defaultCity: json.city})
-        this.createRequest(this.state.defaultCity);
-      })
-  }
-  createRequest(city) {
+  };
+
+  getCity = () => {
+    let cityRequestURL = 'https://freegeoip.net/json/';
+    fetch(cityRequestURL, {
+      method: 'GET'
+    })
+    .then(response => response.json())
+    .then(json => {
+      this.setState({defaultCity: json.city})
+      this.createRequest(this.state.defaultCity);
+    })
+  };
+
+  createRequest = (city) => {
     const WEATHER_FORECAST_API_TOKEN = '6692528c5050d5ca6bbd2daac9eeab8a';
     let BASE_URL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${WEATHER_FORECAST_API_TOKEN}`;
     
@@ -37,17 +43,29 @@ class App extends Component {
     .then(json => {
       this.setState({weatherInfo: json});
     })
-  }
-  updateCity() {
+  };
+
+  updateCity = () => {
     if (/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/.test(this.state.newCity)) {
       this.setState({defaultCity: this.state.newCity});
       this.createRequest(this.state.newCity);
     }
-  }
+  };
+  
+  preloader = () => {
+    setTimeout(() => {
+      this.setState({
+        mainBlockShow: true,
+        showPreloader: false
+      });
+    }, 2000);
+  };
+
+
   render() {
     return (
-      <MuiThemeProvider>
-        <div>
+      <div>
+        <div className={ this.state.mainBlockShow ? 'element-show' : 'element-hidden' }>
           <Header />
           <div className="input-wrapper">
           <TextField 
@@ -68,10 +86,13 @@ class App extends Component {
             className="submit-button"
             onClick={() => this.updateCity()}
           />
-          </div>
-          <Main weatherInfo={this.state.weatherInfo} defaultCity={this.state.defaultCity} />
+          </div> 
+          <Main weatherInfo={this.state.weatherInfo} defaultCity={this.state.defaultCity} /> 
         </div>
-      </MuiThemeProvider>
+        <div className={`preloader-wrapper ${this.state.mainBlockShow ? 'element-hidden' : 'element-show' }`}>
+          <CircularProgress size={100} thickness={5} />
+        </div>
+      </div>
     )
   }
 }

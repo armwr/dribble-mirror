@@ -35,52 +35,55 @@ class MainInformation extends Component {
   weatherTbody = (tab_index) => {
     let forecasts = this.props.weatherInfo.list;
     return (
-        <Tab label={`${ +this.today[2] + tab_index } ${ this.today[1] } ${ this.today[3] }`} value={`tab_${tab_index}`}>
-          <table className="weather-table">
-                <thead>
-                  <tr>
-                    <th>Time</th>
-                    <th>Weather</th>
-                    <th>Description</th>
-                    <th>Temperature</th>
-                    <th>Atm. pressure, mmHg</th>
-                    <th>Humidity air, %</th>
-                    <th>Wind, m/s</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {
-                    forecasts 
-                      ? forecasts.map((forecast, index) => {
-                        let currentDate = new Date(forecast.dt_txt).toString().split(' ');
-                        if (this.today[1] === currentDate[1] && +currentDate[2] === +this.today[2] + tab_index) {
-                          if (forecast.dt_txt.split(' ')[1] === "03:00:00" || forecast.dt_txt.split(' ')[1] === "09:00:00" ||
-                            forecast.dt_txt.split(' ')[1] === "15:00:00" || forecast.dt_txt.split(' ')[1] === "21:00:00") {
-                            return (
-                              <tr key={index}>
-                                <td>
-                                  { 
-                                    forecast.dt_txt.split(' ')[1] ===  '03:00:00' ? 'Night' : 
-                                    forecast.dt_txt.split(' ')[1] ===  '09:00:00' ? 'Morning' : 
-                                    forecast.dt_txt.split(' ')[1] ===  '15:00:00' ? 'Afternoon' : 'Evening'
-                                  }
-                                </td>
-                                <td><div className={`weatherContainer icon-${forecast.weather[0].icon}`}></div></td>
-                                <td><span>{ forecast.weather[0].description }</span></td>
-                                <td><span>{ this.KelvinToCelsius(forecast.main.temp) } °C</span></td>
-                                <td><span>{ forecast.main.pressure }</span></td>
-                                <td><span>{ forecast.main.humidity }</span></td>
-                                <td className="flex-container"><div className={`windContainer ${this.windDirection(forecast.wind.deg)}`}></div><p className="windPar">{ forecast.wind.speed }</p></td>
-                              </tr>
-                            )
-                          }
-                        }
-                      })
-                      : <tr><td><h1>Service is currently unavailable</h1></td></tr>
+      <Tab label={`${ +this.today[2] + tab_index } ${ this.today[1] } ${ this.today[3] }`} value={`tab_${tab_index}`}>
+        <table className="weather-table">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Weather</th>
+              <th>Description</th>
+              <th>Temperature</th>
+              <th>Atm. pressure, mmHg</th>
+              <th>Humidity air, %</th>
+              <th>Wind, m/s</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              forecasts 
+                ? forecasts.map((forecast, index) => {
+                  let currentDate = new Date(forecast.dt_txt).toString().split(' ');
+                  if (this.today[1] === currentDate[1] && +currentDate[2] === +this.today[2] + tab_index) {
+                    if (forecast.dt_txt.split(' ')[1] === "03:00:00" || forecast.dt_txt.split(' ')[1] === "09:00:00" ||
+                      forecast.dt_txt.split(' ')[1] === "15:00:00" || forecast.dt_txt.split(' ')[1] === "21:00:00") {
+                      return (
+                        <tr key={index}>
+                          <td>
+                            { 
+                              forecast.dt_txt.split(' ')[1] ===  '03:00:00' ? 'Night' : 
+                              forecast.dt_txt.split(' ')[1] ===  '09:00:00' ? 'Morning' : 
+                              forecast.dt_txt.split(' ')[1] ===  '15:00:00' ? 'Afternoon' : 'Evening'
+                            }
+                          </td>
+                          <td><div className={`weatherContainer icon-${forecast.weather[0].icon}`}></div></td>
+                          <td><span>{ forecast.weather[0].description }</span></td>
+                          <td><span>{ this.KelvinToCelsius(forecast.main.temp) } °C</span></td>
+                          <td><span>{ forecast.main.pressure }</span></td>
+                          <td><span>{ forecast.main.humidity }</span></td>
+                          <td className="flex-container">
+                            <div className={`windContainer ${this.windDirection(forecast.wind.deg)}`}></div>
+                            <p className="windPar">{ forecast.wind.speed }</p>
+                          </td>
+                        </tr>
+                      )
+                    }
                   }
-            </tbody>
-          </table>
-        </Tab>
+                })
+                : <tr><td><h1>Service is currently unavailable</h1></td></tr>
+            }
+          </tbody>
+        </table>
+      </Tab>
     )
   }
   render () {
