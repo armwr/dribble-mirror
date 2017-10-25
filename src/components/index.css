@@ -61,20 +61,17 @@ body {
   width: 100px;
 }
 
-.icon-04n {
-  height: 90px;
- }
-
 .icon-01n, .icon-01d {
   background-position: -90px -50px;
 }
 
-.icon-02d {
+.icon-02d, .icon-03d {
   background-position: -323px -50px;
 }
 
 .icon-04n, .icon-04d, .icon-03d {
   background-position: -438px -45px;
+  height: 90px;
 }
 
 .icon-10d, .icon-10n, .icon-02n {
@@ -131,4 +128,22 @@ body {
 
 .south-west {
   background-position: -104px -19px;
+}
+
+.element-shown {
+  opacity: 1;
+  height: auto;
+}
+
+.element-hidden {
+  transition: opacity 0.1s ease-out;
+  opacity: 0; 
+  height: 0;
+  overflow: hidden;
+}
+
+.preloader-wrapper {
+  position: absolute;
+  top: calc(50% - 50px);
+  left: calc(50% - 50px);
 }
